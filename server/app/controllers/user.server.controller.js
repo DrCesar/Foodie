@@ -5,9 +5,9 @@ exports.create = function(req, res, next) {
 
 	user.save((err) => {
 		if (err) {
-			return next(err);
+			res.send(err);
 		} else {
-			return res.redirect('/');
+			res.json({status: "Usuario Creado"});
 		}
 	});
 };

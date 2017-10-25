@@ -4,6 +4,7 @@
 
 */
 
+<<<<<<< refs/remotes/origin/master
 // Se exportan los modulos necesarios para el servidor y la conexion a la base de datos
 var express = require('express');
 var mongoose = require('mongoose');
@@ -79,44 +80,21 @@ app.get('/api/menu', function(req, res) {
 app.get('/api/menu/:type', function(req, res) {
 
     console.log("Buscando restaurantes segun el tipo: " + req.params.type);
+=======
 
-    //Codigo para buscar todo el menu en la base de datos
-    restaurantModel.find({type: req.params.type}, function(err, restaurants) {
-        if (err)
-            res.send(err);
+const configureExpress = require('./config/express');
+const configureMongoose = require('./config/mongoose');
 
-        res.json(restaurants);
-    });
-});
 
-app.get('/api/menu/type/:restaurant', function(req, res) {
+const db = configureMongoose();
+const app = configureExpress();
+>>>>>>> Se cambia los servicios
 
-    console.log("Buscando menu del restaurante:" + req.params.restaurant);
-
-    //Codigo para buscar todo el menu en la base de datos
-    restaurantModel.findOne({name: req.params.restaurant}, function(err, menuOptions) {
-        if (err)
-            res.send(err);
-
-        res.json(menuOptions.options);
-    });
-});
-
-app.get('/api/menu/type/:restaurant/:option', function(req, res) {
-
-    console.log("Buscando menu segun la opcion: " + req.params.option);
-
-    //Codigo para buscar todo el menu en la base de datos
-    menuItemModel.find({restaurant: req.params.restaurant, type: req.params.option}, function(err, menuItems) {
-        if (err)
-            res.send(err);
-
-        res.json(menuItems);
-    });
-});
 
 
 //Se crea el servidor
 app.listen(8080, function(){
 	console.log("Started on PORT 8080");
-})
+});
+
+module.export = app;
