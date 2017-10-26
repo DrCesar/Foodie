@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const cors = require('cors');
 var router = express.Router();
+const passport = require('passport');
 
 // Conexión a la base de datos
 //mongoose.connect('mongodb://pro:foodie@ds040027.mlab.com:40027/foodie');
@@ -59,8 +60,16 @@ module.exports = function() {
     next();
     });
 
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+
     const usrController = require('../app/controllers/user.server.controller.js');
-    app.route('/users').post(usrController.create);
+    app.route('/users/signup').post(usrController.signup);
+    app.route('/users/signin').post(passport.authenticate('local'), 
+        function(req, res) {
+            console.log("inicio perro");
+        });
 
     app.get('/api/menu', function(req, res) {
 
