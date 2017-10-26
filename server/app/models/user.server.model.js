@@ -9,7 +9,7 @@ const UserSchema = new Schema({
 		type: String,
 		trim: true,
 		require: true,
-		unique: true
+		unique: "El nombre de usuario debe ser unico."
 	},
 	password: {
 		type: String,
@@ -23,7 +23,7 @@ const UserSchema = new Schema({
 		type: String,
 		index: true,
 		unique: true,
-		require: true,
+		require: "Es necesario ingresar un correo electronico.",
 		 match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
 	},
 	role: {

@@ -4,7 +4,7 @@
 
 */
 
-<<<<<<< refs/remotes/origin/master
+/*
 // Se exportan los modulos necesarios para el servidor y la conexion a la base de datos
 var express = require('express');
 var mongoose = require('mongoose');
@@ -79,8 +79,8 @@ app.get('/api/menu', function(req, res) {
 
 app.get('/api/menu/:type', function(req, res) {
 
-    console.log("Buscando restaurantes segun el tipo: " + req.params.type);
-=======
+    console.log("Buscando restaurantes segun el tipo: " + req.params.type);*/
+
 
 const configureExpress = require('./config/express');
 const configureMongoose = require('./config/mongoose');
@@ -88,7 +88,7 @@ const configureMongoose = require('./config/mongoose');
 
 const db = configureMongoose();
 const app = configureExpress();
->>>>>>> Se cambia los servicios
+
 
 
 
