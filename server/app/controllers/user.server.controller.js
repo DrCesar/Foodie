@@ -17,3 +17,19 @@ exports.signup = function(req, res, next) {
 	});
 };
 
+
+exports.signin = function(req, res, next) {
+
+	passport.authenticate('local', function(err, user, info) {
+
+		if (err) { return next(err); }
+		if (!user) { res.json({message: "El usuario o la contraseña son invalidos."}); }
+
+		req.logIn(user, function(err) {
+			if (err) { return next(err); }
+			res.json({message: "Inicio de sesion existoso."});
+		});
+
+	})(req, res, next);
+};
+

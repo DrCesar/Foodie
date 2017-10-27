@@ -66,10 +66,7 @@ module.exports = function() {
 
     const usrController = require('../app/controllers/user.server.controller.js');
     app.route('/users/signup').post(usrController.signup);
-    app.route('/users/signin').post(passport.authenticate('local'), 
-        function(req, res) {
-            console.log("inicio perro");
-        });
+    app.route('/users/signin').post(usrController.signin);
 
     app.get('/api/menu', function(req, res) {
 
