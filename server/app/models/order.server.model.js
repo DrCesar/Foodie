@@ -1,7 +1,5 @@
 const mongoose =  require('mongoose');
 const Schema = mongoose.Schema;
-const FoodItem = mongose.model('FoodItem');
-
 const OrderSchema = new Schema({
 
 	creator: {
@@ -11,9 +9,7 @@ const OrderSchema = new Schema({
 	participants: {
 		type: [String],
 	},
-	items: {
-		type: [FoodItem],
-	},
+	items: [{type: Schema.ObjectId, ref: 'FoodItem'}],
 	price: {
 		type: Number,
 		require: true

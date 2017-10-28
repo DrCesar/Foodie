@@ -41,10 +41,10 @@ exports.signout = function(req, res, next) {
 }
 
 
-exports.getUser = funtion(req, res, next, username) {
+exports.getUser = function(req, res, next, username) {
 
 	User.findOne({
-		username: username;
+		username: username
 	}, function(err, user) {
 		if (err) {
 			next(err);
