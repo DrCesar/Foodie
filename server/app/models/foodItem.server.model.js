@@ -1,8 +1,12 @@
 const mongoose = require('mongoose').schema();
 const Schema = mongoose.Schema;
 
-const ItemSchema = new Schema({
+const FoodItemSchema = new Schema({
 
+	owner: {
+		type: String,
+		require: true
+	},
 	name: {
 		type:String,
 		require: "Es requerido el nombre del plato."
@@ -10,9 +14,8 @@ const ItemSchema = new Schema({
 	price: {
 		type: Number,
 		require: "Es requerido el precio del plato."
-	},
-	restaurant: String
+	}
 
 });
 
-mongoose.model('Item', ItemSchema);
+mongoose.model('FoodItem', FoodItemSchema);

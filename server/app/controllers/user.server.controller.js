@@ -33,3 +33,25 @@ exports.signin = function(req, res, next) {
 	})(req, res, next);
 };
 
+
+exports.signout = function(req, res, next) {
+
+	req.logout();
+	res.json({message: "Logout exisotso."});
+}
+
+
+exports.getUser = funtion(req, res, next, username) {
+
+	User.findOne({
+		username: username;
+	}, function(err, user) {
+		if (err) {
+			next(err);
+		} else {
+			req.user = user;
+			next();
+		}
+	});
+};
+
