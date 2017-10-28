@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const session = require('express-session');
 const cors = require('cors');
 var router = express.Router();
 const passport = require('passport');

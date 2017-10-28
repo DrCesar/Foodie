@@ -26,8 +26,11 @@ exports.signin = function(req, res, next) {
 		if (!user) { res.json({message: "El usuario o la contraseña son invalidos."}); }
 
 		req.logIn(user, function(err) {
+			console.log("hola");
 			if (err) { return next(err); }
-			res.json({message: "Inicio de sesion existoso."});
+
+
+			res.json({user, message: "Inicio de Sesion."});
 		});
 
 	})(req, res, next);
