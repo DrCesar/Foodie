@@ -41,8 +41,6 @@ var menuItemModel = mongoose.model('MenuItem', menuItemSchema);
 var restaurantModel = mongoose.model("Restaurant", restaurantSchema);
 var foodTypeModel = mongoose.model("foodType", foodTypeSchema);
 
-
-
 //Routes
 module.exports = function() {
 
@@ -117,6 +115,31 @@ module.exports = function() {
                 res.send(err);
 
             res.json(menuItems);
+        });
+    });
+
+    app.post('/api/user/cart', function(req, res) {
+    var userModel = require('mongoose').model('User');
+        userModel.findOne({_id: req.body.userID}, function(err, user) {
+            cart = user.cart;
+            if (cart.indexOf(req.body.itemID) < 0) {
+                cart.push(req.body.itemID);
+                user.cart = cart;
+                user.save(function(err) {
+                    if (err) console.log(err);
+                })
+            }
+            console.log(user);
+        });
+    });
+
+    app.get('/api/user/cart/:userID', function(req, res) {
+    var userModel = require('mongoose').model('User');
+        userModel.findById(req.params.userID, function(err, user) {
+            if (err)
+                res.send(err);
+
+            res.json(user.cart);
         });
     });
 

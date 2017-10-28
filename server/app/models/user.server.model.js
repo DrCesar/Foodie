@@ -43,7 +43,11 @@ const UserSchema = new Schema({
 	role: {
 		type: String,
 		enum: ['Admin', 'Provider', 'User']
+	},
+	cart: {
+		type: [String]
 	}
+
 });
 
 // UserSchema.pre('save', function(error, next) {
@@ -93,4 +97,3 @@ UserSchema.methods.authenticate = function(password) {
 // });
 
 mongoose.model('User', UserSchema);
-
