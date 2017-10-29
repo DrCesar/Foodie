@@ -15,6 +15,8 @@ import { PedidosRecientesPage } from '../pages/pedidos-recientes/pedidos-recient
 import { PerfilPage } from '../pages/perfil/perfil';
 import { RestaurantesPage } from '../pages/restaurantes/restaurantes';
 import { TabsControllerPage } from '../pages/tabs-controller/tabs-controller';
+// import {AngularFireAuth} from 'angularfire2/auth';
+// import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import {datosUser} from '../models/datosUser';
 
 @Component({
@@ -23,8 +25,11 @@ import {datosUser} from '../models/datosUser';
 export class MyApp {
   @ViewChild(Nav) navCtrl: Nav;
   rootPage:any = LoginPage;
+  
+  // profileData: FirebaseObjectObservable<datosUser>;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen/*, private afAuth:AngularFireAuth,
+     private afDatabase: AngularFireDatabase*/) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -35,7 +40,9 @@ export class MyApp {
     });
   }
   ionViewWillLoad(){
-
+    // this.afAuth.authState.take(1).subscribe(data=>{
+    //     this.profileData=this.afDatabase.object(`profile/${data.uid}`)
+    // })
   }
   goToRestaurantesPage(params){
     if(!params) params={};
@@ -73,6 +80,7 @@ export class MyApp {
     this.navCtrl.setRoot(PerfilPage);
   }
   cerrarSesion(){
+    // this.afAuth.auth.signOut();
     this.navCtrl.setRoot(LoginPage);
   }
 }

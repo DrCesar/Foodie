@@ -18,15 +18,19 @@ import { ResultadosDeBSquedaPage } from '../pages/resultados-de-bsqueda/resultad
 import { PerfilPage } from '../pages/perfil/perfil';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+// import { AngularFireModule } from 'angularfire2';
+// import { AngularFireAuthModule } from 'angularfire2/auth';
+// import { AngularFireDatabaseModule } from 'angularfire2/database';
+// import { AngularFireDatabase} from 'angularfire2/database';
 
-export const firebaseConfig = {
-  apiKey: "AIzaSyDA6p3PaQ7yrdCYso5mjEY3zuQixX4uy3M",
-  authDomain: "foodie-8373f.firebaseapp.com",
-  databaseURL: "https://foodie-8373f.firebaseio.com",
-  projectId: "foodie-8373f",
-  storageBucket: "foodie-8373f.appspot.com",
-  messagingSenderId: "850396954237"
-};
+const firebaseConfig = {
+        apiKey: "AIzaSyDA6p3PaQ7yrdCYso5mjEY3zuQixX4uy3M",
+        authDomain: "foodie-8373f.firebaseapp.com",
+        databaseURL: "https://foodie-8373f.firebaseio.com",
+        projectId: "foodie-8373f",
+        storageBucket: "foodie-8373f.appspot.com",
+        messagingSenderId: "850396954237"
+      };
 
 @NgModule({
   declarations: [
@@ -50,6 +54,9 @@ export const firebaseConfig = {
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    // AngularFireModule.initializeApp(firebaseConfig),
+    // AngularFireDatabaseModule,
+    // AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -67,7 +74,7 @@ export const firebaseConfig = {
     AcercaDeFoodiePage,
     RecuperarContraseAPage,
     ResultadosDeBSquedaPage,
-    PerfilPage,
+    PerfilPage
     
     
   ],
