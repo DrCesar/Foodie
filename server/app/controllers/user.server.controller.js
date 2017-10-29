@@ -31,7 +31,7 @@ exports.signin = function(req, res, next) {
 			if (err) { return next(err); }
 
 
-			res.json({user, message: "Inicio de Sesion."});
+			res.json({user, message: "Inicio de Sesion.", userID: user._id});
 		});
 
 	})(req, res, next);
@@ -52,9 +52,8 @@ exports.getUser = function(req, res, next, username) {
 	}, function(err, user) {
 		if (err) {
 			next(err);
-		} 
+		}
 
 		res.json(user);
 	});
 };
-
