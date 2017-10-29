@@ -7,7 +7,6 @@ jobs:
     - stage: Clean Admin
       script:
         - cd Admin
-        - npm isntall
         - npm run clean
 
     - stage: Unit Tests Admin
@@ -25,9 +24,8 @@ jobs:
     - stage: Start Server
       script:
         - cd server
-        - npm isntall
-        - npm start
-
+        - nodemon server.js &
+        - killall node
     - stage: Unit Tests Server
       script:
         #Display Firefox
