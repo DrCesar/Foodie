@@ -7,6 +7,7 @@ jobs:
     - stage: Clean Admin
       script:
         - cd Admin
+        - npm install
         - npm run clean
 
     - stage: Unit Tests Admin
@@ -24,6 +25,7 @@ jobs:
     - stage: Start Server
       script:
         - cd server
+        - npm install
         - nodemon server.js &
         - killall node
     - stage: Unit Tests Server
