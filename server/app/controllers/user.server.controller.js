@@ -4,6 +4,7 @@ const passport = require('passport');
 exports.signup = function(req, res, next) {
 	const user = new User(req.body);
 	user.provider = 'local';
+	user.role = 'User';
 
 	console.log(user);
 
@@ -51,10 +52,9 @@ exports.getUser = function(req, res, next, username) {
 	}, function(err, user) {
 		if (err) {
 			next(err);
-		} else {
-			req.user = user;
-			next();
-		}
+		} 
+
+		res.json(user);
 	});
 };
 

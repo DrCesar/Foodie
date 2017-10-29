@@ -50,14 +50,6 @@ const UserSchema = new Schema({
 
 });
 
-// UserSchema.pre('save', function(error, next) {
-// 	if (error.name === "MongoError" && error.code === 11000) {
-// 		next (new Error("El email y nombre de usuario deben ser unicos."));
-// 	} else {
-// 		next(error);
-// 	}
-// });
-
 UserSchema.pre('save', function(next) {
 	if (this.password) {
 		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
@@ -73,27 +65,5 @@ UserSchema.methods.hashPassword = function(password) {
 UserSchema.methods.authenticate = function(password) {
 	return this.password === this.hashPassword(password);
 };
-
-// UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
-// 	var possibleUsername  username + (suffix || '');
-
-// 	this.fineOne({
-// 		username: possibleUsername
-// 	}, (err, user) => {
-// 		if (!err) {
-// 			if (!user) {
-// 				callback(possibleUsername);
-// 			} else {
-// 				return this.findUniqueUsername(username, (suffix || 0) + 1, callback);
-// 			}
-// 		} else {
-// 			callback(null);
-// 		}
-// 	});
-// };
-
-// UserSchema.set('toJSON', {
-// 	getters: true
-// });
 
 mongoose.model('User', UserSchema);
