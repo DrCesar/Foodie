@@ -9,7 +9,7 @@ const OrderSchema = new Schema({
 	participants: {
 		type: [String],
 	},
-	items: [Schema.Types.Mixed],
+	plates: [Schema.Types.Mixed],
 	price: {
 		type: Number,
 		require: true

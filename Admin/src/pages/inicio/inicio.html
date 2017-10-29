@@ -17,34 +17,17 @@
   </div>
   <div class="spacer" style="width:300px;height:9px;" id="inicio-spacer2"></div>
   <ion-list id="inicio-list3">
-    <ion-item color="assertive" class="text" *ngFor="let item of items | async" on-tap="goToRestaurants(item.$value)">
-      {{item.$value}}
+    <ion-item color="assertive" class="text" *ngFor="let item of orders" on-tap="goToRestaurants(item.$value)">
+      <ion-item color="assertive" class="text">
+        {{item}}
+      </ion-item>
+      <ion-item color="assertive" class="text" *ngFor="let plate of item.plates">
+        {{plate.name}}
+      </ion-item>
+      <ion-item color="assertive" class="text">
+        {{item.price}}
+      </ion-item>    
     </ion-item>
-    <!--
-    <ion-item color="assertive" on-click="goToRestaurantes()" id="inicio-list-item20">
-      Comida Asiática
-    </ion-item>
-    <ion-item color="assertive" on-click="goToRestaurantes()" id="inicio-list-item23">
-      Comida Italiana
-    </ion-item>
-    <ion-item color="assertive" on-click="goToRestaurantes()" id="inicio-list-item24">
-      Comida Mexicana
-    </ion-item>
-    <ion-item color="assertive" on-click="goToRestaurantes()" id="inicio-list-item25">
-      Steak
-    </ion-item>
-    <ion-item color="assertive" on-click="goToRestaurantes()" id="inicio-list-item26">
-      Hamburguesas
-    </ion-item>
-    <ion-item color="assertive" on-click="goToRestaurantes()" id="inicio-list-item27">
-      Comida Internacional
-    </ion-item>
-    <ion-item color="assertive" on-click="goToRestaurantes()" id="inicio-list-item28">
-      Café
-    </ion-item>
-    <ion-item color="assertive" on-click="goToRestaurantes()" id="inicio-list-item29">
-      Comida Latina
-    </ion-item>-->
   </ion-list>
   <h5 id="inicio-heading4" style="color:#FFFFFF;font-weight:lighter;font-style:italic;text-align:center;">
     Foodie© 2017

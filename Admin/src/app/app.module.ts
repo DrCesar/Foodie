@@ -18,10 +18,14 @@ import { ResultadosDeBSquedaPage } from '../pages/resultados-de-bsqueda/resultad
 import { PerfilPage } from '../pages/perfil/perfil';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { HttpModule } from '@angular/http';
 // import { AngularFireModule } from 'angularfire2';
 // import { AngularFireAuthModule } from 'angularfire2/auth';
 // import { AngularFireDatabaseModule } from 'angularfire2/database';
 // import { AngularFireDatabase} from 'angularfire2/database';
+
+import { InformationProvider } from '../providers/information/information';
+import { UserProvider } from '../providers/user/users';
 
 const firebaseConfig = {
         apiKey: "AIzaSyDA6p3PaQ7yrdCYso5mjEY3zuQixX4uy3M",
@@ -53,6 +57,7 @@ const firebaseConfig = {
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
     // AngularFireModule.initializeApp(firebaseConfig),
     // AngularFireDatabaseModule,
@@ -81,7 +86,9 @@ const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    InformationProvider,
+    UserProvider
   ]
 })
 export class AppModule {}

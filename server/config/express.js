@@ -69,6 +69,7 @@ module.exports = function() {
 
     const orderController = require('../app/controllers/order.server.controller');
     app.route('/api/order').post(orderController.addOrder);
+    app.route('/api/order/:restaurant').get(orderController.getOrder);
 
     app.get('/api/menu', function(req, res) {
 

@@ -5,23 +5,29 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class UserProvider {
 
+	restaurant: any;
 	url: any;
 	data: any;
 
 	constructor(public http: Http) {
+		this.restaurant = "LinLin";
 		this.url = "http://localhost:8080";
 		this.data = null;
 	}
 
-	getCartByUser(userID) {
-        return new Promise(resolve => {
-            this.http.get(this.url + '/api/user/cart/'+userID)
-                .map(res => res.json())
-                .subscribe(data => {
+	getOrders() {
+		console.log(this.restaurant);
+
+		return new Promise(resolve => {
+
+			this.http.get(this.url + '/api/order/' + this.restaurant)
+				.map(res => res.json())
+				.subscribe(data => {
                     this.data = data;
                     resolve(this.data);
                 });
-        });
+                
+		});
 	}
 
 	getUser(user) {
@@ -41,6 +47,8 @@ export class UserProvider {
 		headers.append('Content-Type', 'application/json');
 
 		return this.http.post('http://localhost:8080/users/signin', JSON.stringify(user), {headers: headers})
-			.map(res => {return res});
+			.map(res => {
+				this.restaurant = res.json().restaurant;
+			});
 	}
 }

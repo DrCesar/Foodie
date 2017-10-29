@@ -5,14 +5,11 @@ exports.signup = function(req, res, next) {
 	const user = new User(req.body);
 	user.provider = 'local';
 	user.role = 'User';
-
-	console.log(user);
-
+	
 	user.save((err) => {
 		if (err) {
 			res.send(err);
 		} else {
-			console.log("creado perro");
 			res.json({message: "El usuario ha sido creado."});
 		}
 	});
@@ -27,7 +24,6 @@ exports.signin = function(req, res, next) {
 		if (!user) { res.json({message: "El usuario o la contraseña son invalidos."}); }
 
 		req.logIn(user, function(err) {
-			console.log("hola");
 			if (err) { return next(err); }
 
 
