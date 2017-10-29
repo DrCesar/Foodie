@@ -139,8 +139,24 @@ module.exports = function() {
         userModel.findById(req.params.userID, function(err, user) {
             if (err)
                 res.send(err);
+            cart = [];
+            asyncMenuItemLoop(0, function() {
+                res.json(cart);
+            });
 
-            res.json(user.cart);
+            function asyncMenuItemLoop( i, callback) {
+                if( i < user.cart.length ) {
+                    menuItemModel.findById(user.cart[i], function(err , menuItem) {
+                        cart.push({
+                            name: menuItem.name,
+                            price: menuItem.price
+                        });
+                        asyncMenuItemLoop(i+1, callback);
+                    });
+                } else {
+                    callback();
+                }
+            }
         });
     });
 
