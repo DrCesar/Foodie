@@ -14,8 +14,9 @@ jobs:
         #Display Firefox
         - export DISPLAY=:99.0
         - sh -e /etc/init.d/xvfb start
-    - stage: Clean
+    - stage: Clean Admin
       script:
+        - cd Admin
         - npm run clean
 group: stable
 dist: trusty
