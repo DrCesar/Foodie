@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Categorías
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page9" style="background-color:#E44045;">
+  <ion-list id="categorAs-list6">
+    <ion-item color="assertive" *ngFor="let item of items | async" on-click="goToPlatos(item.$value)" id="categorAs-list-item13">
+      {{item.$key}}
+    </ion-item>
+  </ion-list>
+</ion-content>

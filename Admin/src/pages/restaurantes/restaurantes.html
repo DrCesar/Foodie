@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Restaurantes
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page13" style="background-color:#E44045;">
+  <ion-list id="restaurantes-list7">
+    <ion-item color="assertive" *ngFor="let item of items | async" on-tap="goToCategorias(item.$value)" id="restaurantes-list-item30">
+        {{item.$value}}
+    </ion-item>
+  </ion-list>
+</ion-content>

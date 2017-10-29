@@ -1,0 +1,11 @@
+db.restaurant.insert({"name": "LinLin", "type": "asiatica"}, "options": ["Entradas", "Platos Fuertes", "Bebidas"])
+db.restaurant.insert({"name": "Saikashi", "type": "asiatica", "options": ["Rollos", "Tepanyaki", "Bebidas"]})
+db.restaurant.insert({"name": "L'albero", "type": "italiana", "options": ["Antipasto", "Pizza", "Pasta"]})
+db.restaurant.insert({"name": "Buongiorno", "type": "italiana", "options": ["Desayunos", "Pasta", "Bebidas"]})
+db.restaurant.insert({"name": "Las catrinas", "type": "mexicana", "options": ["Tacos", "Bebidas", "Postres"]})
+db.restaurant.insert({"name": "Tacostumbras", "type": "mexicana", "options": ["Tacos", "Tortas", "Bebidas"]})
+db.restaurant.insert({"name": "Don Emanuel", "type": "steak", "options": "Entradas", "Platos Fuertes", "Bebidas"})
+db.restaurant.insert({"name": "Las Brasas", "type": "steak", "options": ["Pollo", "Steak", "Postres"]})
+db.restaurant.insert({"name": "Del Puente", "type": "hamburguesas", "options": ["Tradicional", "Puyazo", "Bebidas"]})
+db.restaurant.insert({"name": "Del Molino", "type": "hamburguesas", "options" : ["Especiales", "Bebidas"]})
+

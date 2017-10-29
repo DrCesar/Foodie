@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Perfil
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page20" style="background-color:#E44045;">
+  <form id="perfil-form7">
+    <div id="perfil-markdown" class="show-list-numbers-and-dots">
+      <p style="color:#000000;">
+        Nombre
+      </p>
+    </div>
+    <ion-item id="perfil-input">
+      <ion-input type="text" placeholder="" [(ngModel)]="usuario.nombre" name="something"></ion-input>
+    </ion-item>
+    <div id="perfil-markdown11" class="show-list-numbers-and-dots">
+      <p style="color:#000000;">
+        Apellido
+      </p>
+    </div>
+    <ion-item id="perfil-input12">
+      <ion-input type="text" placeholder=""[(ngModel)]="usuario.apellido" name="something"></ion-input>
+    </ion-item>
+    <!--<div id="perfil-markdown10" class="show-list-numbers-and-dots">
+      <p style="color:#000000;">
+        Contraseña
+      </p>
+    </div>
+    <ion-item id="perfil-input14">
+      <ion-input type="password" placeholder=""[(ngModel)]="user.password" name="something"></ion-input>
+    </ion-item>-->
+  </form>
+  <div class="spacer" style="width:300px;height:18px;" id="pedidosRecientes-spacer4"></div>
+  <button id="pedidosRecientes-button17" ion-button color="assertive" icon-left style="color:#FFFFFF;" on-click="regresar();">
+    Confirmar datos
+  </button>
+</ion-content>
