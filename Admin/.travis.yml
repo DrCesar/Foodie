@@ -1,0 +1,22 @@
+language": node_js
+sudo": required
+node_js: 6.11.3
+install: npm install
+jobs:
+  include:
+    - stage: Unit Tests
+      script:
+        #Display Firefox
+        - export DISPLAY=:99.0
+        - sh -e /etc/init.d/xvfb start
+    - stage: e2e Tests
+      script:
+        #Display Firefox
+        - export DISPLAY=:99.0
+        - sh -e /etc/init.d/xvfb start
+    - stage: Clean
+      script:
+        - npm run clean
+group: stable
+dist: trusty
+os: linux
