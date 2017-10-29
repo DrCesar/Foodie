@@ -67,6 +67,9 @@ module.exports = function() {
     app.route('/users/signup').post(usrController.signup);
     app.route('/users/signin').post(usrController.signin);
 
+    const orderController = require('../app/controllers/order.server.controller');
+    app.route('/api/order').post(orderController.addOrder);
+
     app.get('/api/menu', function(req, res) {
 
         console.log("Nombre de todos los tipos de comida.");

@@ -9,13 +9,14 @@ const OrderSchema = new Schema({
 	participants: {
 		type: [String],
 	},
-	items: [{type: Schema.ObjectId, ref: 'FoodItem'}],
+	items: [Schema.Types.Mixed],
 	price: {
 		type: Number,
 		require: true
 	},
 	restaurant: String
-
+	},{		
+		collection: "orders"
 });
 
 
