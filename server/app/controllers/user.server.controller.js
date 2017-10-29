@@ -5,12 +5,12 @@ exports.signup = function(req, res, next) {
 	const user = new User(req.body);
 	user.provider = 'local';
 	user.role = 'User';
-	
+
 	user.save((err) => {
 		if (err) {
 			res.send(err);
 		} else {
-			res.json({message: "El usuario ha sido creado."});
+			res.json({message: "El usuario ha sido creado.", userID: user._id});
 		}
 	});
 };
