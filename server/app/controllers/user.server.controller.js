@@ -2,7 +2,7 @@ const User = require('mongoose').model('User');
 const passport = require('passport');
 
 exports.signup = function(req, res, next) {
-	const user = new User(req.body);
+	var user = new User(req.body);
 	user.provider = 'local';
 	user.role = 'User';
 
@@ -10,6 +10,7 @@ exports.signup = function(req, res, next) {
 		if (err) {
 			res.send(err);
 		} else {
+			user.hashPass();
 			res.json({message: "El usuario ha sido creado.", userID: user._id});
 		}
 	});

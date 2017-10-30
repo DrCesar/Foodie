@@ -8,9 +8,6 @@ const cors = require('cors');
 var router = express.Router();
 const passport = require('passport');
 
-// Conexión a la base de datos
-//mongoose.connect('mongodb://pro:foodie@ds040027.mlab.com:40027/foodie');
-
 // Configuraciónb necesaria para la REST API
 
 
@@ -123,8 +120,9 @@ module.exports = function() {
         });
     });
 
+    //Request para obtener el carrito de un usuario
     app.post('/api/user/cart', function(req, res) {
-    var userModel = require('mongoose').model('User');
+        var userModel = require('mongoose').model('User');
         userModel.findOne({_id: req.body.userID}, function(err, user) {
             cart = user.cart;
             if (cart.indexOf(req.body.itemID) < 0) {
@@ -134,33 +132,40 @@ module.exports = function() {
                     if (err) console.log(err);
                 })
             }
-            console.log(user);
         });
+        res.json({message: "Agregado al carrito."});
     });
 
     app.get('/api/user/cart/:userID', function(req, res) {
-    var userModel = require('mongoose').model('User');
+        var userModel = require('mongoose').model('User');
         userModel.findById(req.params.userID, function(err, user) {
             if (err)
                 res.send(err);
-            cart = [];
-            asyncMenuItemLoop(0, function() {
-                res.json(cart);
-            });
+            res.json(user.cart);
+        });
+    });
 
-            function asyncMenuItemLoop( i, callback) {
-                if( i < user.cart.length ) {
-                    menuItemModel.findById(user.cart[i], function(err , menuItem) {
-                        cart.push({
-                            name: menuItem.name,
-                            price: menuItem.price
-                        });
-                        asyncMenuItemLoop(i+1, callback);
-                    });
-                } else {
-                    callback();
-                }
+    app.get('/api/menu/item/:itemID', function(req, res) {
+        menuItemModel.findById(req.params.itemID, function (err, item) {
+            if (err)
+                console.log(err);
+            res.json(item);
+        });
+    });
+
+    app.get('/api/user/cart/delete/:userID/:itemID', function(req, res) {
+        var userModel = require('mongoose').model('User');
+        userModel.findById(req.params.userID, function(err, user) {
+            var cart = user.cart;
+            var index = cart.indexOf(req.params.itemID);
+            if (index >= 0) {
+                cart.splice(index, 1);
+                user.cart = cart;
+                user.save(function(err) {
+                    if (err) console.log(err);
+                })
             }
+            res.json(user.cart);
         });
     });
 

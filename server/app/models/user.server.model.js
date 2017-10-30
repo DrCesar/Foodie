@@ -50,19 +50,21 @@ const UserSchema = new Schema({
 
 });
 
-UserSchema.pre('save', function(next) {
+UserSchema.methods.hashPass = function() {
 	if (this.password) {
 		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
 		this.password = this.hashPassword(this.password);
+		console.log(this.password);
 	}
-	next();
-});
+}
 
 UserSchema.methods.hashPassword = function(password) {
 	return crypto.pbkdf2Sync(password, this.salt, 10000, 64, 'sha1').toString('base64');
 }
 
 UserSchema.methods.authenticate = function(password) {
+	console.log(this.hashPassword(password));
+	console.log(this.hashPassword(password));
 	return this.password === this.hashPassword(password);
 };
 
