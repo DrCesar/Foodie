@@ -7,8 +7,8 @@
   </ion-header>
   <ion-content padding id="page9" style="background-color:#E44045;">
     <ion-list id="categorAs-list6">
-      <ion-item color="assertive" on-click="goToPlatos(value)" id="categorAs-list-item13">
-        Entradas
+      <ion-item color="assertive" on-click="goToPlatos(value)" id="categorAs-list-item13" *ngFor= "let option of options">
+        {{option}}
       </ion-item>
       <ion-item color="assertive" on-click="goToPlatos(value)" id="categorAs-list-item14">
         Platos Fuertes

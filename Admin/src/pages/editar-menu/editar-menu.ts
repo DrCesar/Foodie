@@ -8,16 +8,31 @@ import { LoginPage } from '../login/login';
 import { AcercaDeFoodiePage } from '../acerca-de-foodie/acerca-de-foodie';
 import { PlatosPage } from '../platos/platos';
 import { AlertController } from 'ionic-angular';
+import { InformationProvider } from '../../providers/information/information';
 
 @Component({
     selector: 'page-editar-menu',
     templateUrl: 'editar-menu.html'
   })
   export class EditarMenuPage {
+
     profileData: FirebaseObjectObservable<datosUser>;
     items: FirebaseListObservable<any[]>;
-    constructor(public navCtrl: NavController,public alertCtrl: AlertController) {
+    options: any;
+
+    constructor(public navCtrl: NavController,public alertCtrl: AlertController,
+    public informationService: InformationProvider) {
+
     }
+
+    ionViewDidLoad() {
+        this.informationService.getOptionsByRestaurant().then((data) => {
+            this.options = data;
+            alert(this.options);
+        });
+    }
+
+
     goToAcercaDeFoodie(params){
       if (!params) params = {};
       this.navCtrl.push(AcercaDeFoodiePage);

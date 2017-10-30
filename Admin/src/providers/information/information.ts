@@ -23,4 +23,15 @@ export class InformationProvider {
                 });
         });
 	}
+
+	getOptionsByRestaurant() {
+        return new Promise(resolve => {
+            this.http.get(this.url + '/api/admin/options/'+this.restaurante)
+                .map(res => res.json())
+                .subscribe(data => {
+                    this.data = data;
+                    resolve(this.data);
+                });
+        });
+	}
 }
