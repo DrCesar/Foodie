@@ -2,17 +2,22 @@ const User = require('mongoose').model('User');
 const passport = require('passport');
 
 exports.signup = function(req, res, next) {
-	const user = new User(req.body);
+	var user = new User(req.body);
 	user.provider = 'local';
 	user.role = 'User';
 
-	user.save((err) => {
-		if (err) {
-			res.send(err);
-		} else {
-			res.json({message: "El usuario ha sido creado.", userID: user._id});
-		}
-	});
+	if (user.password.length < 6) {
+		res.json({message:"La contraseña debe contener almenos 6 caracteres."});
+	} else {
+		user.hashPass();
+		user.save((err) => {
+			if (err) {
+				res.send(err);
+			} else {
+				res.json({message: "El usuario ha sido creado.", userID: user._id});
+			}
+		});
+	}
 };
 
 
