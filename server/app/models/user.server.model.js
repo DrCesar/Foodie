@@ -22,7 +22,7 @@ const UserSchema = new Schema({
 	password: {
 		type: String,
 		validate: [(password) => {
-			return password.length > 6;
+			return password.length >= 6;
 			},
 			"La contraseña debe contener almenos 6 caracteres."
 		]

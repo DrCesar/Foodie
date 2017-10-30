@@ -6,14 +6,18 @@ exports.signup = function(req, res, next) {
 	user.provider = 'local';
 	user.role = 'User';
 
-	user.save((err) => {
-		if (err) {
-			res.send(err);
-		} else {
-			user.hashPass();
-			res.json({message: "El usuario ha sido creado.", userID: user._id});
-		}
-	});
+	if (user.password.length < 6) {
+		res.json({message:"La contraseña debe contener almenos 6 caracteres."});
+	} else {
+		user.hashPass();
+		user.save((err) => {
+			if (err) {
+				res.send(err);
+			} else {
+				res.json({message: "El usuario ha sido creado.", userID: user._id});
+			}
+		});
+	}
 };
 
 
