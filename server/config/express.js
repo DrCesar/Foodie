@@ -186,5 +186,12 @@ module.exports = function() {
         });
     });
 
+    app.get('/api/admin/options/:restaurant', function(req, res) {
+        restaurantModel.findOne(req.params.restaurant, function(err, restaurant) {
+            if (err) console.log(err);
+            res.json(restaurant.options);
+        });
+    });
+
     return app;
 }
