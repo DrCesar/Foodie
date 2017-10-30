@@ -4,56 +4,23 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class InformationProvider {
+	restaurante: string = "LinLin";
+	data: any;
+	url: any;
 
-    data: any;
-    url: any;
+	constructor(public http: Http) {
+			this.url = "http://localhost:8080";
+			this.data = null;
+		}
 
-    constructor(public http: Http) {
-        this.data = null;
-        this.url = "http://localhost:8080";
-    }
-
-    getTypeRestaurant() {
+	getOrders() {
         return new Promise(resolve => {
-            this.http.get(this.url + '/api/menu')
+            this.http.get(this.url + '/api/admin/'+this.restaurante)
                 .map(res => res.json())
                 .subscribe(data => {
                     this.data = data;
                     resolve(this.data);
                 });
         });
-    }
-
-    getRestaurantByType(type) {
-        return new Promise(resolve => {
-            this.http.get(this.url + "/api/menu/" + type)
-                .map(res => res.json())
-                .subscribe(data => {
-                    this.data = data;
-                    resolve(this.data);
-                });
-        });
-    }
-
-    getOptionsByRestaurant(restaurant) {
-        return new Promise(resolve => {
-            this.http.get(this.url + "/api/menu/type/" + restaurant)
-                .map(res => res.json())
-                .subscribe(data => {
-                    this.data = data;
-                    resolve(this.data);
-                });
-        });
-    }
-
-    getMenuByOptions(restaurant, option) {
-        return new Promise(resolve => {
-            this.http.get(this.url + '/api/menu/type/' + restaurant + "/" + option)
-                .map(res => res.json())
-                .subscribe(data => {
-                    this.data = data;
-                    resolve(this.data);
-                });
-        });
-    }
+	}
 }

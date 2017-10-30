@@ -1,43 +1,49 @@
 import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
-import { PlatosPage } from '../platos/platos';
-import { RestaurantesPage } from '../restaurantes/restaurantes';
-// import {  FirebaseListObservable } from 'angularfire2/database';
-// import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
-// import {AngularFireAuth} from 'angularfire2/auth';
-import { UserProvider } from '../../providers/user/users';
+import { FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+import {AngularFireAuth} from 'angularfire2/auth';
 import {datosUser} from '../../models/datosUser';
+import { LoginPage } from '../login/login';
+import { AcercaDeFoodiePage } from '../acerca-de-foodie/acerca-de-foodie';
+import {EditarMenuPage} from '../editar-menu/editar-menu';
+import { PedidosRecientesPage } from '../pedidos-recientes/pedidos-recientes';
+import { RevisarPedidosPage } from '../revisar-pedidos/revisar-pedidos';
 
 @Component({
   selector: 'page-inicio',
   templateUrl: 'inicio.html'
 })
 export class InicioPage {
-
-  orders: any;
-  // profileData: FirebaseObjectObservable<datosUser>;
-  // items: FirebaseListObservable<any[]>;
-  constructor(/*private afAuth:AngularFireAuth,*/ private userServie: UserProvider, public navCtrl: NavController, /*private afDB: AngularFireDatabase,*/ private toast: ToastController) {
-    // this.items = afDB.list('/Categorias');
+  profileData: FirebaseObjectObservable<datosUser>;
+  items: FirebaseListObservable<any[]>;
+  constructor(private afAuth:AngularFireAuth, public navCtrl: NavController, private afDB: AngularFireDatabase, private toast: ToastController) {
+    this.items = afDB.list('/Categorias');
+    this.ionViewWillLoad();
   }
-
-  ionViewDidLoad() {
-
-    this.userServie.getOrders()
-      .then(data => {
-        console.log(data);
-        this.orders = data;
-      });
-
+  ionViewWillLoad(){
+    //this.afAuth.authState.take(1).subscribe(data=>{
+        //this.profileData=this.afDB.object(`profile/${data.uid}`)
+    //})
   }
-
-
-  goToRestaurants(params){
-    console.log(params);
-    let data = {type: params};
-    this.navCtrl.push(RestaurantesPage, data);
-  }goToPlatos(params){
+  goToAcercaDeFoodie(params){
     if (!params) params = {};
-    this.navCtrl.push(PlatosPage);
+    this.navCtrl.push(AcercaDeFoodiePage);
+  }
+  cerrarSesion(){
+    this.afAuth.auth.signOut();
+    this.navCtrl.setRoot(LoginPage);
+  }
+  goToEditarMenu(params){
+    if (!params) params = {};
+    this.navCtrl.push(EditarMenuPage);
+  }
+  goToPedidosRecientes(params){
+    if (!params) params = {};
+    this.navCtrl.setRoot(PedidosRecientesPage);
+  }
+  goToRevisarPedidos(params){
+    if (!params) params = {};
+    this.navCtrl.push(RevisarPedidosPage);
   }
 }

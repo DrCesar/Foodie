@@ -1,22 +1,17 @@
+import { InicioPage } from '../pages/inicio/inicio';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AlertController } from 'ionic-angular';
-import { RecuperarContraseAPage } from '../pages/recuperar-contrase-a/recuperar-contrase-a';
 import { LoginPage } from '../pages/login/login';
-import { InicioPage } from '../pages/inicio/inicio';
-import { CategorAsPage } from '../pages/categor-as/categor-as';
-import { PlatosPage } from '../pages/platos/platos';
+import { EditarMenuPage } from '../pages/editar-menu/editar-menu';
+import { RevisarPedidosPage } from '../pages/revisar-pedidos/revisar-pedidos';
 import { AcercaDeFoodiePage } from '../pages/acerca-de-foodie/acerca-de-foodie';
-import { ResultadosDeBSquedaPage } from '../pages/resultados-de-bsqueda/resultados-de-bsqueda';
-import { PedidoAnteriorPage } from '../pages/pedido-anterior/pedido-anterior'
 import { PedidosRecientesPage } from '../pages/pedidos-recientes/pedidos-recientes';
-import { PerfilPage } from '../pages/perfil/perfil';
-import { RestaurantesPage } from '../pages/restaurantes/restaurantes';
 import { TabsControllerPage } from '../pages/tabs-controller/tabs-controller';
-// import {AngularFireAuth} from 'angularfire2/auth';
-// import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+import {AngularFireAuth} from 'angularfire2/auth';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import {datosUser} from '../models/datosUser';
 
 @Component({
@@ -25,11 +20,11 @@ import {datosUser} from '../models/datosUser';
 export class MyApp {
   @ViewChild(Nav) navCtrl: Nav;
   rootPage:any = LoginPage;
-  
-  // profileData: FirebaseObjectObservable<datosUser>;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen/*, private afAuth:AngularFireAuth,
-     private afDatabase: AngularFireDatabase*/) {
+  profileData: FirebaseObjectObservable<datosUser>;
+
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private afAuth:AngularFireAuth,
+     private afDatabase: AngularFireDatabase) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -40,47 +35,29 @@ export class MyApp {
     });
   }
   ionViewWillLoad(){
-    // this.afAuth.authState.take(1).subscribe(data=>{
-    //     this.profileData=this.afDatabase.object(`profile/${data.uid}`)
-    // })
-  }
-  goToRestaurantesPage(params){
-    if(!params) params={};
-    this.navCtrl.setRoot(RestaurantesPage);
+    //this.afAuth.authState.take(1).subscribe(data=>{
+    //    this.profileData=this.afDatabase.object(`profile/${data.uid}`)
+    //})
   }
   goToLogin(params){
     if (!params) params = {};
     this.navCtrl.setRoot(LoginPage);
-  }goToRecuperarContraseA(params){
-    if (!params) params = {};
-    this.navCtrl.setRoot(RecuperarContraseAPage);
   }goToInicio(params){
     if (!params) params = {};
     this.navCtrl.setRoot(InicioPage);
-  }goToCategorAs(params){
-    if (!params) params = {};
-    this.navCtrl.setRoot(CategorAsPage);
-  }goToPlatos(params){
-    if (!params) params = {};
-    this.navCtrl.setRoot(PlatosPage);
   }goToAcercaDeFoodie(params){
     if (!params) params = {};
     this.navCtrl.setRoot(AcercaDeFoodiePage);
-  }goToResultadosDeBSqueda(params){
-    if (!params) params = {};
-    this.navCtrl.setRoot(ResultadosDeBSquedaPage);
   }goToPedidosRecientes(params){
     if (!params) params = {};
     this.navCtrl.setRoot(PedidosRecientesPage);
-  }goToPedidoAnterior(params){
+  }
+  goToRevisarPedidos(params){
     if (!params) params = {};
-    this.navCtrl.setRoot(PedidoAnteriorPage);
-  }goToPerfil(params){
-    if (!params) params = {};
-    this.navCtrl.setRoot(PerfilPage);
+    this.navCtrl.setRoot(RevisarPedidosPage);
   }
   cerrarSesion(){
-    // this.afAuth.auth.signOut();
+    this.afAuth.auth.signOut();
     this.navCtrl.setRoot(LoginPage);
   }
 }

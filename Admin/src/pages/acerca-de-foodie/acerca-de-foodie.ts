@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { TabsControllerPage } from '../tabs-controller/tabs-controller';
+import { InicioPage } from '../inicio/inicio';
 
 @Component({
   selector: 'page-acerca-de-foodie',
@@ -12,6 +12,6 @@ export class AcercaDeFoodiePage {
   }
   regresar(params){
     if (!params) params = {};
-    this.navCtrl.push(TabsControllerPage); 
+    this.navCtrl.setRoot(InicioPage); 
   }
 }

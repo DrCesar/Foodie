@@ -1,8 +1,5 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
     <ion-title>
       Inicio
     </ion-title>
@@ -10,23 +7,27 @@
 </ion-header>
 <ion-content padding id="page5" style="background-color:#E44045;">
   <h3 id="inicio-heading3" style="color:#FFFFFF;text-align:center;">
-    ¿De qué tienes ganas?
+    Bienvenido, {{(profileData | async)?.nombre}} {{(profileData | async)?.apellido}}
   </h3>
-  <div>
-    <img src="assets/img/s3lKYdblQmOqh3JSUHLK_uIy4K9SaSmil1UZLMmJ7_sticker375x360.u2.png" style="display:block;width:15%;height:auto;margin-left:auto;margin-right:auto;" />
-  </div>
+  <h4 id="inicio-heading3" style="color:#FFFFFF;text-align:center;">
+    Restaurante: {{(profileData | async)?.restaurante}}
+  </h4>
   <div class="spacer" style="width:300px;height:9px;" id="inicio-spacer2"></div>
   <ion-list id="inicio-list3">
-    <ion-item color="assertive" class="text" *ngFor="let item of orders" on-tap="goToRestaurants(item.$value)">
-      <ion-item color="assertive" class="text">
-        {{item}}
-      </ion-item>
-      <ion-item color="assertive" class="text" *ngFor="let plate of item.plates">
-        {{plate.name}}
-      </ion-item>
-      <ion-item color="assertive" class="text">
-        {{item.price}}
-      </ion-item>    
+    <!--<ion-item color="assertive" class="text" *ngFor="let item of items | async" on-tap="goToRestaurants(item.$value)">
+      {{item.$value}}
+    </ion-item>-->
+    <ion-item color="assertive" on-click="goToRevisarPedidos()" id="inicio-list-item20">
+      Revisar pedidos entrantes
+    </ion-item>
+    <ion-item color="assertive" on-click="goToEditarMenu()" id="inicio-list-item23">
+      Editar el menú
+    </ion-item>
+    <ion-item color="assertive" on-click="cerrarSesion()" id="inicio-list-item24">
+      Cerrar sesión
+    </ion-item>
+    <ion-item color="assertive" on-click="goToAcercaDeFoodie()" id="inicio-list-item24">
+      Acerca de Foodie©
     </ion-item>
   </ion-list>
   <h5 id="inicio-heading4" style="color:#FFFFFF;font-weight:lighter;font-style:italic;text-align:center;">

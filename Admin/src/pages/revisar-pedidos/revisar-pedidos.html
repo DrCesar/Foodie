@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Pedidos
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page9" style="background-color:#E44045;">
+  <ion-list id="categorAs-list6">
+
+
+    <ion-item color="assertive"  id="categorAs-list-item13" *ngFor="let order of orders">
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="assets/img/Users-User-Male-2-icon.png">
+          </ion-avatar>
+          <h2>Ciborg</h2>
+          <p>{{order.date}}</p>
+        </ion-item>
+
+        <ion-card-content *ngFor="let item of order.items">
+          <p>{{ item.name }}</p>
+        </ion-card-content>
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-left clear small>
+              <ion-icon ios="ios-checkmark-circle" md="md-checkmark-circle">
+
+              </ion-icon>
+              <div>Pendiente</div>
+            </button>
+            </ion-col>
+            <ion-col center text-center>
+              <ion-note>
+                hace {{order.timePassed}}
+              </ion-note>
+            </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-item>
+
+
+  </ion-list>
+</ion-content>
