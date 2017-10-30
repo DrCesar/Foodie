@@ -2,6 +2,7 @@ const Order = require('mongoose').model('Order');
 
 
 exports.addOrder = function(req, res, next) {
+	
 	const order =  new Order(req.body);
 
 	order.save(function(err) {

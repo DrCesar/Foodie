@@ -2,20 +2,24 @@ const mongoose =  require('mongoose');
 const Schema = mongoose.Schema;
 const OrderSchema = new Schema({
 
-	creator: {
+	owner: {
 		type: String,
 		require: true
 	},
 	participants: {
 		type: [String],
 	},
-	plates: [Schema.Types.Mixed],
+	items: [Schema.Types.Mixed],
 	price: {
 		type: Number,
 		require: true
 	},
+	date: {
+		type: Date,
+		default: Date.now
+	},
 	restaurant: String
-	},{		
+	},{
 		collection: "orders"
 });
 

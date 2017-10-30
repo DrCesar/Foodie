@@ -68,6 +68,7 @@ module.exports = function() {
     app.route('/api/order').post(orderController.addOrder);
     app.route('/api/order/:restaurant').get(orderController.getOrder);
 
+    //Ruta para obtener los tipos de comida de los restaurantes
     app.get('/api/menu', function(req, res) {
 
         console.log("Nombre de todos los tipos de comida.");
@@ -81,6 +82,7 @@ module.exports = function() {
         });
     });
 
+    //Ruta que devuelve los restaurantes del tipo pedido
     app.get('/api/menu/:type', function(req, res) {
 
         console.log("Buscando restaurantes segun el tipo: " + req.params.type);
@@ -94,6 +96,7 @@ module.exports = function() {
         });
     });
 
+    //Ruta que devuelve los tipos de comida del restaurante seleccionado
     app.get('/api/menu/type/:restaurant', function(req, res) {
 
         console.log("Buscando menu del restaurante:" + req.params.restaurant);
@@ -107,6 +110,7 @@ module.exports = function() {
         });
     });
 
+    //Ruta que devuelve el menu de un restaurante
     app.get('/api/menu/type/:restaurant/:option', function(req, res) {
 
         console.log("Buscando menu segun la opcion: " + req.params.option);
@@ -120,7 +124,7 @@ module.exports = function() {
         });
     });
 
-    //Request para obtener el carrito de un usuario
+    //Ruta para agregar un item al carrito de un usuario
     app.post('/api/user/cart', function(req, res) {
         var userModel = require('mongoose').model('User');
         userModel.findOne({_id: req.body.userID}, function(err, user) {
@@ -136,6 +140,7 @@ module.exports = function() {
         res.json({message: "Agregado al carrito."});
     });
 
+    //Ruta que devuelve el carrito de un usuario
     app.get('/api/user/cart/:userID', function(req, res) {
         var userModel = require('mongoose').model('User');
         userModel.findById(req.params.userID, function(err, user) {
@@ -145,6 +150,7 @@ module.exports = function() {
         });
     });
 
+    //Ruta que devuelve las caracteristicas de un item del menu
     app.get('/api/menu/item/:itemID', function(req, res) {
         menuItemModel.findById(req.params.itemID, function (err, item) {
             if (err)
@@ -153,6 +159,7 @@ module.exports = function() {
         });
     });
 
+    //Ruta para eliminar un item del carrito de un usuario
     app.get('/api/user/cart/delete/:userID/:itemID', function(req, res) {
         var userModel = require('mongoose').model('User');
         userModel.findById(req.params.userID, function(err, user) {
@@ -166,6 +173,16 @@ module.exports = function() {
                 })
             }
             res.json(user.cart);
+        });
+    });
+
+    //Ruta para obtener las ordenes de un restaurante
+    app.get('/api/admin/:restaurant', function(req, res) {
+        var orderModel = require('mongoose').model('Order');
+        orderModel.find({restaurant: req.params.restaurant}, function (err, orders) {
+            if (err) console.log(err);
+            console.log(orders);
+            res.json(orders);
         });
     });
 
