@@ -27,7 +27,6 @@ jobs:
         - cd server
         - npm install
         - nodemon server.js &
-        - killall node
     - stage: Unit Tests Server
       script:
         #Display Firefox
