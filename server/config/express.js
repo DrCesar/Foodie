@@ -139,7 +139,7 @@ module.exports = function() {
         });
         res.json({message: "Agregado al carrito."});
     });
-
+``
     //Ruta que devuelve el carrito de un usuario
     app.get('/api/user/cart/:userID', function(req, res) {
         var userModel = require('mongoose').model('User');
@@ -187,10 +187,16 @@ module.exports = function() {
     });
 
     app.get('/api/admin/options/:restaurant', function(req, res) {
-        restaurantModel.findOne(req.params.restaurant, function(err, restaurant) {
+        restaurantModel.findOne({name: req.params.restaurant}, function(err, restaurant) {
             if (err) console.log(err);
-            res.json(restaurant.options);
+
+            res.json(restaurant);
         });
+    });
+
+    app.post('/api/admin/add/option', function(req, res) {
+        var restaurant = req.body.restaurant;
+        var option = req.body.option;
     });
 
     return app;
