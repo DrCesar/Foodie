@@ -10,22 +10,10 @@
 </ion-header>
 <ion-content padding id="page14" style="background-color:#E44045;">
   <ion-list id="platos-list8">
-      <ion-item color="assertive"  on-click="editarPlato(value)"  id="platos-list-item31">
-        Rollo de salmón
+      <ion-item color="assertive" *ngFor="let item of menu" on-click="editarPlato(value)"  id="platos-list-item31">
+        {{item.name}}
         <ion-note item-right>
-          Q70
-        </ion-note>
-      </ion-item>
-      <ion-item color="assertive"  on-click="editarPlato(value)"  id="platos-list-item31">
-        Won ton de lomito
-        <ion-note item-right>
-          Q60
-        </ion-note>
-      </ion-item>
-      <ion-item color="assertive"  on-click="editarPlato(value)"  id="platos-list-item31">
-        Camarones empanizados
-        <ion-note item-right>
-          Q80
+          Q{{item.price}}
         </ion-note>
       </ion-item>
       <ion-item color="assertive"  on-click="agregarPlato()"  id="platos-list-item31">

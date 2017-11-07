@@ -9,6 +9,7 @@ import { AcercaDeFoodiePage } from '../acerca-de-foodie/acerca-de-foodie';
 import { PlatosPage } from '../platos/platos';
 import { AlertController } from 'ionic-angular';
 import { InformationProvider } from '../../providers/information/information';
+import { UserProvider } from '../../providers/user/user';
 
 @Component({
     selector: 'page-revisar-pedidos',
@@ -25,7 +26,8 @@ import { InformationProvider } from '../../providers/information/information';
 
     constructor(public navCtrl: NavController,
     public alertCtrl: AlertController,
-    public informationService: InformationProvider) {
+    public informationService: InformationProvider,
+    public userService: UserProvider) {
 
     }
 
@@ -34,7 +36,6 @@ import { InformationProvider } from '../../providers/information/information';
             this.orders = data;
             this.dates = [];
             this.getDates(0);
-
         });
     }
 

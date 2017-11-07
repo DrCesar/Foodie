@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
-import { FirebaseListObservable } from 'angularfire2/database';
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
-import {AngularFireAuth} from 'angularfire2/auth';
+import { NavController, ToastController, NavParams } from 'ionic-angular';
 import {datosUser} from '../../models/datosUser';
 import { LoginPage } from '../login/login';
 import { AcercaDeFoodiePage } from '../acerca-de-foodie/acerca-de-foodie';
@@ -16,51 +13,81 @@ import { InformationProvider } from '../../providers/information/information';
   })
   export class EditarMenuPage {
 
-    profileData: FirebaseObjectObservable<datosUser>;
-    items: FirebaseListObservable<any[]>;
-    options: any;
+      options: any;
 
-    constructor(public navCtrl: NavController,public alertCtrl: AlertController,
+    constructor(
+    public navParams: NavParams,
+    public navCtrl: NavController,
+    public alertCtrl: AlertController,
     public informationService: InformationProvider) {
-
     }
 
-    ionViewDidLoad() {
-        this.informationService.getOptionsByRestaurant().then((data) => {
+    ionViewDidEnter() {
+        this.informationService.getCategories().then((data) => {
             this.options = data;
-            alert(this.options);
         });
     }
-
 
     goToAcercaDeFoodie(params){
       if (!params) params = {};
       this.navCtrl.push(AcercaDeFoodiePage);
     }
+
     goToPlatos(params){
-            if (!params) params = {};
-            this.navCtrl.push(PlatosPage);
+        let data = {option: params};
+        this.navCtrl.push(PlatosPage, data);
     }
+
     agregarCategoria(){
         let prompt = this.alertCtrl.create({
             title: "Crear nueva categoría",
             message: "Ingrese el nombre de la nueva categoría:",
             inputs: [
                 {
-                    name: 'nombre',
+                    name: 'name',
                     placeholder: 'Nombre'
                 }
 
             ],
             buttons: [
                 {
-                    text: 'Cancelar'
+                    text: 'Cancelar',
+                    role: 'cancel'
                 },
                 {
-                    text: 'Guardar'
+                    text: 'Guardar',
+                    handler: data => {
+                        this.confirmAlert(data.name);
+                    }
                 }
             ]
         });
         prompt.present();
+    }
+
+    confirmAlert(category) {
+        let alert = this.alertCtrl.create({
+        title: '¿Desea agregar esta categoría?',
+        message: 'La categoría será mostrada a los clientes de ahora en adelante.',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel'
+          },
+          {
+            text: 'Confirmar',
+            handler: () => {
+              this.addCategory(category);
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
+
+    addCategory(category) {
+        this.informationService.addCategory(category);
+        if (this.options.indexOf(category) < 0 )
+            this.options.push(category);
     }
   }

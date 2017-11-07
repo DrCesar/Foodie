@@ -10,8 +10,8 @@
 </ion-header>
 <ion-content padding id="page9" style="background-color:#E44045;">
   <ion-list id="categorAs-list6">
-    <ion-item color="assertive" *ngFor="let item of items | async" on-click="goToPlatos(item.$value)" id="categorAs-list-item13">
-      {{item.$key}}
+    <ion-item color="assertive" *ngFor="let option of options" on-click="goToPlatos()" id="categorAs-list-item13">
+      {{option}}
     </ion-item>
   </ion-list>
 </ion-content>

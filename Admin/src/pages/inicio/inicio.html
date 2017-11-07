@@ -10,7 +10,7 @@
     Bienvenido, {{(profileData | async)?.nombre}} {{(profileData | async)?.apellido}}
   </h3>
   <h4 id="inicio-heading3" style="color:#FFFFFF;text-align:center;">
-    Restaurante: Lin Lin
+    Restaurante: {{(profileData | async)?.restaurante}}
   </h4>
   <div class="spacer" style="width:300px;height:9px;" id="inicio-spacer2"></div>
   <ion-list id="inicio-list3">
