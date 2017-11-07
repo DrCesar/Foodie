@@ -28,8 +28,13 @@ var restaurantSchema = new mongoose.Schema({
 var menuItemSchema = new mongoose.Schema({
     name: String,
     picture: String,
-    price: Number,
+    price: {
+        type: Number
+        //get: getPrice,
+        //set: setPrice
+    },
     restaurant: String,
+    description: String,
     type: String},
     { collection: "menu"
 });
@@ -37,7 +42,15 @@ var menuItemSchema = new mongoose.Schema({
 
 var menuItemModel = mongoose.model('MenuItem', menuItemSchema);
 var restaurantModel = mongoose.model("Restaurant", restaurantSchema);
-var foodTypeModel = mongoose.model("foodType", foodTypeSchema);
+var foodTypeModel = mongoose.model("FoodType", foodTypeSchema);
+
+function getPrice(num){
+    return (num/100).toFixed(2);
+}
+
+function setPrice(num){
+    return num*100;
+}
 
 //Routes
 module.exports = function() {
@@ -124,6 +137,19 @@ module.exports = function() {
         });
     });
 
+    //Ruta que devuelve las caracteristicas de un item del menu
+    app.get('/api/menu/item/:itemID', function(req, res) {
+        menuItemModel.findById(req.params.itemID, function (err, item) {
+            if (err)
+                console.log(err);
+            res.json(item);
+        });
+    });
+
+
+
+
+
     //Ruta para agregar un item al carrito de un usuario
     app.post('/api/user/cart', function(req, res) {
         var userModel = require('mongoose').model('User');
@@ -150,15 +176,6 @@ module.exports = function() {
         });
     });
 
-    //Ruta que devuelve las caracteristicas de un item del menu
-    app.get('/api/menu/item/:itemID', function(req, res) {
-        menuItemModel.findById(req.params.itemID, function (err, item) {
-            if (err)
-                console.log(err);
-            res.json(item);
-        });
-    });
-
     //Ruta para eliminar un item del carrito de un usuario
     app.get('/api/user/cart/delete/:userID/:itemID', function(req, res) {
         var userModel = require('mongoose').model('User');
@@ -176,27 +193,62 @@ module.exports = function() {
         });
     });
 
+    app.get('/api/user/:id', function(req, res) {
+        var userModel = require('mongoose').model('User');
+        userModel.findById(req.params.userID, function(err, user) {
+            if (err) console.log(err);
+            res.json(user);
+        });
+    });
+
+
+
+
+
+
     //Ruta para obtener las ordenes de un restaurante
     app.get('/api/admin/:restaurant', function(req, res) {
         var orderModel = require('mongoose').model('Order');
         orderModel.find({restaurant: req.params.restaurant}, function (err, orders) {
             if (err) console.log(err);
-            console.log(orders);
             res.json(orders);
         });
     });
 
-    app.get('/api/admin/options/:restaurant', function(req, res) {
+    app.get('/api/admin/categories/:restaurant', function(req, res) {
         restaurantModel.findOne({name: req.params.restaurant}, function(err, restaurant) {
             if (err) console.log(err);
 
-            res.json(restaurant);
+            res.json(restaurant.options);
         });
     });
 
-    app.post('/api/admin/add/option', function(req, res) {
+    app.post('/api/admin/category', function(req, res) {
         var restaurant = req.body.restaurant;
-        var option = req.body.option;
+        var category = req.body.category;
+        restaurantModel.findOne({name: restaurant}, function(err, rest) {
+            if (rest.options.indexOf(category) < 0) {
+                rest.options.push(category);
+                rest.save(function(err) {
+                    if (err) console.log(err);
+                });
+            }
+            res.json({message: "Se ha añadido correctamente."})
+        });
+    });
+
+    app.post('/api/admin/menu', function(req, res) {
+        menuItemModel.create({
+            name: req.body.name,
+            price: req.body.price,
+            restaurant: req.body.restaurant,
+            description: req.body.description,
+            type: req.body.type
+        }, function (err, newItem) {
+            if (err) console.log(err);
+            console.log(newItem);
+        });
+        res.json({message:"Se ha añadido correctamente."})
     });
 
     return app;

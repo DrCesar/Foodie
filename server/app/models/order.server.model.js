@@ -6,6 +6,14 @@ const OrderSchema = new Schema({
 		type: String,
 		require: true
 	},
+	firstName: {
+		type: String,
+		require: true
+	},
+	lastName: {
+		type: String,
+		require: true
+	},
 	participants: {
 		type: [String],
 	},
