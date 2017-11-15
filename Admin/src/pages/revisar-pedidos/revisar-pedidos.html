@@ -9,7 +9,7 @@
   <ion-list id="categorAs-list6">
 
 
-    <ion-item color="assertive"  id="categorAs-list-item13" *ngFor="let order of orders">
+    <ion-item color="assertive"  id="categorAs-list-item13" *ngFor="let order of orders | reverse; let i = index">
       <ion-card>
         <ion-item>
           <ion-avatar item-start>
@@ -19,7 +19,7 @@
           <p>{{order.date}}</p>
         </ion-item>
 
-        <ion-item *ngFor="let item of order.items">
+        <ion-item *ngFor="let item of order.items; let j = index" on-tap="showComment(i,j)">
           <p>{{ item.name }}</p>
          </ion-item>
         <ion-row>

@@ -73,13 +73,46 @@ export class InformationProvider {
 		let headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 
-		this.http.post(this.url + '/api/admin/menu', JSON.stringify(this.item), {headers: headers})
+		return new Promise(resolve => {
+			this.http.post(this.url + '/api/admin/menu/add', JSON.stringify(this.item), {headers: headers})
+				.map(res => res.json())
+				.subscribe(data => {
+					this.data = data;
+					resolve(this.data);
+			});
+		});
+	}
+
+	deleteItem(id) {
+		let info = {
+			id: id
+		}
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+
+		this.http.post(this.url + '/api/admin/menu/delete', JSON.stringify(info), {headers: headers})
 			.subscribe(res => {
 				console.log(res.json());
 			});
 	}
 
 	editItem(id, name, description, price) {
+		let info = {
+			id: id,
+			name: name,
+			description: description,
+			price: price
+		}
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/json');
 
+		return new Promise(resolve => {
+			this.http.post(this.url + '/api/admin/menu/edit', JSON.stringify(info), {headers: headers})
+				.map(res => res.json())
+				.subscribe(data => {
+					this.data = data;
+					resolve(this.data);
+			});
+		});
 	}
 }

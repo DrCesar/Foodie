@@ -54,7 +54,14 @@ import { UserProvider } from '../../providers/user/user';
         }
     }
 
-
+    showComment(i, j) {
+        let alert = this.alertCtrl.create({
+            title: "Comentario",
+            subTitle: this.orders[i].items[j].comment,
+            buttons: ['OK']
+        });
+        alert.present();
+    }
 
     goToAcercaDeFoodie(params){
       if (!params) params = {};

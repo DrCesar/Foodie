@@ -10,10 +10,10 @@
 </ion-header>
 <ion-content padding id="page14" style="background-color:#E44045;">
   <ion-list id="platos-list8">
-      <ion-item color="assertive" *ngFor="let item of menu" on-click="editarPlato(value)"  id="platos-list-item31">
+      <ion-item color="assertive" *ngFor="let item of menu; let i = index" on-click="editarPlato(i)"  id="platos-list-item31">
         {{item.name}}
         <ion-note item-right>
-          Q{{item.price}}
+          Q{{(item.price/100).toFixed(2)}}
         </ion-note>
       </ion-item>
       <ion-item color="assertive"  on-click="agregarPlato()"  id="platos-list-item31">

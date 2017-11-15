@@ -26,12 +26,12 @@ export class PlatosPage {
   public informationService: InformationProvider) {
   }
 
-  ionViewDidLoad(){
-    this.category = this.navParams.get('option');
-    this.informationService.getMenuByOptions(this.category).then((data) => {
-        this.menu = data;
-    });
-  }
+    ionViewDidLoad(){
+        this.category = this.navParams.get('option');
+        this.informationService.getMenuByOptions(this.category).then((data) => {
+            this.menu = data;
+        });
+    }
 
   goToPlato(params){
     if (!params) params = {};
@@ -65,7 +65,7 @@ export class PlatosPage {
                 {
                     text: 'Guardar',
                     handler: data => {
-                        this.confirmAlert(data.name, data.description, data.price);
+                        this.confirmAlertAdd(data.name, data.description, data.price);
                     }
                 }
             ]
@@ -73,44 +73,54 @@ export class PlatosPage {
         prompt.present();
     }
 
-    editarPlato(params){
+    editarPlato(index){
         let prompt = this.alertCtrl.create({
             title: "Editar plato",
-            message: "Aquí puede modificar los datos de este producto:",
+            message: "Aquí puede modificar los datos de este plato:",
             inputs: [
                 {
-                    name: 'nombre',
-                    value: 'Rollo de salmón'
+                    name: 'name',
+                    placeholder: 'Nombre',
+                    value: this.menu[index].name
                 },
                 {
-                  name: 'descripcion',
-                  value: 'Delicioso rollo de salmón con aguacate, queso crema y salsa de ostras.'
+                  name: 'description',
+                  placeholder: 'Descripcion',
+                  value: this.menu[index].description
                 },
                 {
-                  name: 'precio',
-                  value: '70.00'
+                  name: 'price',
+                  placeholder: 'Precio en quetzales',
+                  value: (this.menu[index].price/100).toFixed(2)
                 }
 
             ],
             buttons: [
                 {
-                    text: 'Cancelar'
+                    text: 'Cancelar',
+                    role: 'cancel'
                 },
                 {
-                    text: 'Guardar'
+                    text: 'Guardar',
+                    handler: data => {
+                        this.confirmAlertEdit(this.menu[index]._id, data.name, data.description, data.price, index)
+                    }
                 },
                 {
-                    text: 'Eliminar plato'
+                    text: 'Eliminar plato',
+                    handler: () => {
+                        this.confirmAlertDelete(index);
+                    }
                 }
             ]
         });
         prompt.present();
     }
 
-    confirmAlert(name, description, price) {
+    confirmAlertAdd(name, description, price) {
         let alert = this.alertCtrl.create({
-        title: '¿Desea agregar esta categoría?',
-        message: 'La categoría será mostrada a los clientes de ahora en adelante.',
+        title: '¿Desea agregar este plato?',
+        message: 'El plato será mostrado a los clientes de ahora en adelante.',
         buttons: [
           {
             text: 'Cancelar',
@@ -119,7 +129,52 @@ export class PlatosPage {
           {
             text: 'Confirmar',
             handler: () => {
-              this.informationService.addItemToMenu(name, description, price, this.category);
+              this.informationService.addItemToMenu(name, description, price, this.category).then((data) => {
+                  this.menu.push(data);
+              });
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
+
+    confirmAlertDelete(index) {
+        let alert = this.alertCtrl.create({
+        title: '¿Desea borrar este plato?',
+        message: 'Este plato ya no será mostrada a los clientes de ahora en adelante.',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel'
+          },
+          {
+            text: 'Confirmar',
+            handler: () => {
+                this.informationService.deleteItem(this.menu[index]._id);
+                this.menu.splice(index, 1);
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
+
+    confirmAlertEdit(id, name, description, price, index) {
+        let alert = this.alertCtrl.create({
+        title: '¿Desea cambiar la información de este plato?',
+        message: 'La nueva información del plato será mostrado a los clientes de ahora en adelante.',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel'
+          },
+          {
+            text: 'Confirmar',
+            handler: () => {
+              this.informationService.editItem(id, name, description, price).then((data) => {
+                  this.menu.splice(index, 1, data);
+              });
             }
           }
         ]
