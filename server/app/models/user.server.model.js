@@ -61,7 +61,6 @@ UserSchema.methods.hashPass = function() {
 	if (this.password) {
 		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
 		this.password = this.hashPassword(this.password);
-		console.log(this.password);
 	}
 }
 
@@ -70,8 +69,6 @@ UserSchema.methods.hashPassword = function(password) {
 }
 
 UserSchema.methods.authenticate = function(password) {
-	console.log(this.hashPassword(password));
-	console.log(this.hashPassword(password));
 	return this.password === this.hashPassword(password);
 };
 
