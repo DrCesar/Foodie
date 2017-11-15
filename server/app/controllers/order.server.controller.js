@@ -30,3 +30,32 @@ exports.getOrder = function(req, res, next) {
 			res.json(order);
 		});
 };
+
+exports.deleteOrder = function(req, res, next) {
+
+	Order.findById(req.params.orderID,
+		function(err, order) {
+			if (err) {
+				res.json({err, message: 'No se encontro la orden a eliminar.'});
+			} 
+			res.json({message: 'Orden eliminada con exito.'});
+		});
+
+};
+
+exports.completeOrder = function(req, res, next) {
+
+	Order.findById(req.params.orderID,
+		function(err, order) {
+			if (err) {
+				res.json()
+			}
+			order.status = 'complete';
+			order.save(function(err) {
+				if (err) {
+					res.json({err, message: 'No se logro completar la orden.'})
+				}
+				res.json({message: 'Orden completada.'});
+			});
+		});
+}
