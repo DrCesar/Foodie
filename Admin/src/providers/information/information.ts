@@ -115,4 +115,30 @@ export class InformationProvider {
 			});
 		});
 	}
+
+	completeOrder(id) {
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+
+		return new Promise(resolve => {
+			this.http.post(this.url + '/api/order/complete/' + id, {headers: headers})
+				.map(res => res.json())
+				.subscribe(data => {
+					resolve(data);
+				});
+		});
+	}
+
+	deleteOrder(id) {
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+
+		return new Promise(resolve => {
+			this.http.post(this.url + '/api/order/delete/' + id, {headers: headers})
+				.map(res => res.json())
+				.subscribe(data => {
+					resolve(data);
+				});
+		});
+	}
 }

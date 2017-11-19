@@ -58,3 +58,15 @@ exports.getUser = function(req, res, next, username) {
 		res.json(user);
 	});
 };
+
+
+exports.deleteCart = function(req, res, next) {
+
+	User.update({_id: req.params.userID}, {
+		$set: { cart:[] }
+	}, function(err, raw) {
+		if (err)
+			res.send(err);
+		res.json(raw);
+	});
+};

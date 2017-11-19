@@ -9,11 +9,12 @@ exports.addOrder = function(req, res, next) {
 	userModel.findById(order.owner, function(err, user) {
 		order.firstName = user.firstName;
 		order.lastName = user.lastName;
+		order.status = 'Pendiente';
 		order.save(function(err) {
 			if (err)
 				res.json({err, message: "Error en la creación de la orden."});
 			else
-				res.json({message: "Orden creada con exito."})
+				res.json({message: "Orden creada con exito.", order})
 		});
 	});
 };
@@ -31,6 +32,16 @@ exports.getOrder = function(req, res, next) {
 		});
 };
 
+exports.getUserOrders = function(req, res, next) {
+
+	Order.find({owner: req.params.userID},
+		function(err, order) {
+			if (err) 
+				res.json({err, message: 'No se encontraron las ordenes'});
+			res.json(order);
+		});
+}
+
 exports.deleteOrder = function(req, res, next) {
 
 	Order.findById(req.params.orderID,
@@ -38,7 +49,11 @@ exports.deleteOrder = function(req, res, next) {
 			if (err) {
 				res.json({err, message: 'No se encontro la orden a eliminar.'});
 			} 
-			res.json({message: 'Orden eliminada con exito.'});
+			order.remove(function(err) {
+				if (err)
+					res.json({err, message: "No se pudo eliminar la orden."});
+				res.json({err, message: "Orden eliminada exitosamente."})
+			})
 		});
 
 };
@@ -55,7 +70,7 @@ exports.completeOrder = function(req, res, next) {
 				if (err) {
 					res.json({err, message: 'No se logro completar la orden.'})
 				}
-				res.json({message: 'Orden completada.'});
+				res.json({owner: order.owner, message: 'Orden completada.'});
 			});
 		});
 }

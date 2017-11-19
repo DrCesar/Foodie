@@ -73,4 +73,48 @@ import { UserProvider } from '../../providers/user/user';
             this.navCtrl.push(PlatosPage);
     }
 
+
+    handleCompleteOrder(order) {
+
+        this.informationService.completeOrder(order._id).then((data) => {
+            this.alert(data['message']);
+        });
+    }
+
+    handleDeleteOrder(order) {
+        let alert = this.alertCtrl.create({
+            title: 'Eliminar',
+            subTitle: 'Desea eliminar el pedido?',
+            buttons: [
+                {
+                    text: 'Cancelar',
+                    role: 'cancel'
+                }, {
+                    text: 'OK',
+                    handler: () => {
+                        this.deleteOrder(order);
+                    }
+                }
+            ]
+        });
+        alert.present();
+    }
+
+    deleteOrder(order) {
+
+        this.informationService.deleteOrder(order._id).then((data) => {
+            this.alert(data['message']);
+        });
+    }
+
+    alert(info, title = 'Alerta') {
+        let alert = this.alertCtrl.create({
+            title: title,
+            subTitle: info,
+            buttons: ['OK']
+        });
+        alert.present();
+    }
+    
+
   }

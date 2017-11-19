@@ -53,6 +53,12 @@ const UserSchema = new Schema({
 	},
 	cart: {
 		type: [String]
+	},
+	orders: {
+		type: [String]
+	},
+	friends: {
+		type: [String]
 	}
 
 });

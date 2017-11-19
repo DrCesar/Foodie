@@ -76,10 +76,14 @@ module.exports = function() {
     const usrController = require('../app/controllers/user.server.controller.js');
     app.route('/users/signup').post(usrController.signup);
     app.route('/users/signin').post(usrController.signin);
+    app.route('/api/user/cart/delete/:userID').post(usrController.deleteCart);
 
     const orderController = require('../app/controllers/order.server.controller');
     app.route('/api/order').post(orderController.addOrder);
     app.route('/api/order/:restaurant').get(orderController.getOrder);
+    app.route('/api/order/delete/:orderID').post(orderController.deleteOrder);
+    app.route('/api/admin/complete/:orderID').post(orderController.completeOrder);
+    app.route('/api/order/user/:userID').get(orderController.getUserOrders);
 
     //Ruta para obtener los tipos de comida de los restaurantes
     app.get('/api/menu', function(req, res) {
@@ -165,7 +169,7 @@ module.exports = function() {
         });
         res.json({message: "Agregado al carrito."});
     });
-``
+
     //Ruta que devuelve el carrito de un usuario
     app.get('/api/user/cart/:userID', function(req, res) {
         var userModel = require('mongoose').model('User');
