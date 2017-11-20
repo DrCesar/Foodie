@@ -159,6 +159,7 @@ module.exports = function() {
             if (cart.indexOf(req.body.itemID) < 0) {
                 cart.push(req.body.itemID);
                 user.cart = cart;
+                user.currentRestaurant = req.body.restaurant;
                 user.save(function(err) {
                     if (err) console.log(err);
                 })
@@ -186,6 +187,8 @@ module.exports = function() {
             if (index >= 0) {
                 cart.splice(index, 1);
                 user.cart = cart;
+                if (user.cart.length == 0)
+                    user.currentRestaurant = "";
                 user.save(function(err) {
                     if (err) console.log(err);
                 })

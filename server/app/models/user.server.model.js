@@ -63,8 +63,11 @@ const UserSchema = new Schema({
 	},
 	friends: {
 		type: [String]
+	},
+	currentRestaurant: {
+		type: String,
+		default: ""
 	}
-
 });
 
 UserSchema.methods.hashPass = function() {
