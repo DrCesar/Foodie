@@ -56,6 +56,35 @@ exports.getUser = function(req, res, next) {
 	});
 };
 
+exports.searchUser = function(req, res, next) {
+
+	User.find({username: { $regex: '.*' + req.params.username + '.*', $options: 'i'}}, 
+		function(err, users) {
+			if (err) 
+				res.json({err, message: 'No se encontraron usuarios'});
+			res.json(users);
+	});
+}
+
+
+exports.addFriend = function(req, res, next) {
+
+	User.findById(req.params.userID,
+		function(err,user) {
+			if (err) res.json({err, message: 'Nose encontro el usuario.'});
+
+			if (user.friends.indexOf(req.params.friendID) < 0) {
+				user.friends.push(req.params.friendID);
+				user.save(err => {
+					if (err) res.json({err, message: 'No se logro agregar al usuario.'});
+					console.log(user.friends);
+					res.json({message: 'Amigo agregado.'});
+				});
+			} else {
+				res.json({message: 'Amigo existente.'})
+			}
+		});
+}
 
 exports.deleteCart = function(req, res, next) {
 

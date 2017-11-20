@@ -74,6 +74,8 @@ module.exports = function() {
     app.route('/users/signin').post(usrController.signin);
     app.route('/api/user/:userID').get(usrController.getUser);
     app.route('/api/user/cart/delete/:userID').post(usrController.deleteCart);
+    app.route('/api/user/search/:username').get(usrController.searchUser);
+    app.route('/api/user/addFriend/:userID/:friendID').post(usrController.addFriend);
 
     const orderController = require('../app/controllers/order.server.controller');
     app.route('/api/order').post(orderController.addOrder);
