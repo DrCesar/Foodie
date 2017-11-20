@@ -19,6 +19,7 @@ import { AngularFireDatabase} from 'angularfire2/database';
 import { HttpModule } from '@angular/http';
 import { InformationProvider } from '../providers/information/information';
 import { UserProvider } from '../providers/user/user';
+import {NgPipesModule} from 'ngx-pipes';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDA6p3PaQ7yrdCYso5mjEY3zuQixX4uy3M",
@@ -43,6 +44,7 @@ export const firebaseConfig = {
 
   ],
   imports: [
+    NgPipesModule,
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
