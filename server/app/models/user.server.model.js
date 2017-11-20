@@ -34,6 +34,10 @@ const UserSchema = new Schema({
 			"La contraseña debe contener almenos 6 caracteres."
 		]
 	},
+	img: {
+		data: Buffer,
+		contentType: String
+	},
 	salt: {
 		type: String
 	},

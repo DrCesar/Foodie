@@ -46,16 +46,13 @@ exports.signout = function(req, res, next) {
 }
 
 
-exports.getUser = function(req, res, next, username) {
+exports.getUser = function(req, res, next) {
 
-	User.findOne({
-		username: username
-	}, function(err, user) {
-		if (err) {
-			next(err);
-		}
-
-		res.json(user);
+	User.findById(req.params.userID, 
+		function(err, user) {
+			if (err) 
+				res.json(err);
+			res.json(user);
 	});
 };
 
