@@ -7,8 +7,6 @@ jobs:
     - stage: Clean Admin
       script:
         - cd Admin
-        - npm install
-        - npm run clean
 
     - stage: Unit Tests Admin
       script:
@@ -21,16 +19,11 @@ jobs:
         #Display Firefox
         - export DISPLAY=:99.0
         - sh -e /etc/init.d/xvfb start
-        - cd Admin
-        - npm run build
-        - ionic serve &
-        - npm run e2e
     
     - stage: Start Server
       script:
         - cd server
-        - npm install
-        - nodemon server.js &
+        
     - stage: Unit Tests Server
       script:
         #Display Firefox
