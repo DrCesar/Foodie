@@ -32,7 +32,7 @@ exports.signin = function(req, res, next) {
 			if (err) { return next(err); }
 
 
-			res.json({user, message: "Inicio de Sesion.", userID: user._id});
+			res.json({user, message: "Inicio de Sesion.", userID: user._id, restaurant: user.currentRestaurant});
 		});
 
 	})(req, res, next);
