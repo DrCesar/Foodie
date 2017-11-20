@@ -29,9 +29,8 @@ var menuItemSchema = new mongoose.Schema({
     name: String,
     picture: String,
     price: {
-        type: Number
-        //get: getPrice,
-        //set: setPrice
+        type: Number,
+        set: setPrice
     },
     restaurant: String,
     description: String,
@@ -44,12 +43,9 @@ var menuItemModel = mongoose.model('MenuItem', menuItemSchema);
 var restaurantModel = mongoose.model("Restaurant", restaurantSchema);
 var foodTypeModel = mongoose.model("FoodType", foodTypeSchema);
 
-function getPrice(num){
-    return (num/100).toFixed(2);
-}
-
 function setPrice(num){
-    return num*100;
+    temp = num*1
+    return temp.toFixed(2) * 100
 }
 
 //Routes
@@ -242,7 +238,8 @@ module.exports = function() {
         });
     });
 
-    app.post('/api/admin/menu', function(req, res) {
+    //Ruta para añadir un plato
+    app.post('/api/admin/menu/add', function(req, res) {
         menuItemModel.create({
             name: req.body.name,
             price: req.body.price,
@@ -251,9 +248,29 @@ module.exports = function() {
             type: req.body.type
         }, function (err, newItem) {
             if (err) console.log(err);
-            console.log(newItem);
+            res.json(newItem);
         });
-        res.json({message:"Se ha añadido correctamente."})
+    });
+
+    //Ruta para eliminar un plato
+    app.post('/api/admin/menu/delete', function(req, res) {
+        menuItemModel.findByIdAndRemove(req.body.id, function(err) {
+            if (err) console.log(err);
+        });
+        res.json({message: "Se ha borrado exitosamente."})
+    });
+
+    //Ruta para que editar un plato
+    app.post('/api/admin/menu/edit', function(req, res) {
+        menuItemModel.findById(req.body.id, function(err, doc) {
+            doc.name = req.body.name;
+            doc.description = req.body.description;
+            doc.price = req.body.price;
+            doc.save(function(err, updatedDoc) {
+                if (err) console.log(err);
+                res.json(updatedDoc);
+            });
+        });
     });
 
     return app;
