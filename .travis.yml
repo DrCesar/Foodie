@@ -31,7 +31,6 @@ jobs:
         #Display Firefox
         - export DISPLAY=:99.0
         - sh -e /etc/init.d/xvfb start
-        - node server
 
     - stage: e2e Tests Server
       script:
